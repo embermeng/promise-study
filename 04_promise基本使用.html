@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>04_promise基本使用</title>
 </head>
+
 <body>
   <script>
-    
+    // 1. 创建一个新的Promise对象
+    const pro = new Promise((resolve, reject) => { // 执行器函数，执行异步操作
+      // 2. 执行异步任务
+      setTimeout(() => {
+        const time = Date.now()
+        // 如果当前时间是偶数，成功，否则失败
+        if (time % 2 === 0) {
+          resolve('成功的数据, time=' + time)
+        } else {
+          reject('失败的数据, time=' + time)
+        }
+      }, 1000);
+      // 3. 成功了调用resolve(value), 失败了调用reject(reason)
+    })
+    pro.then(
+      // pro的状态变成resolved后执行成功的回调，失败的回调同理
+      (value) => { // 接收得到成功的value数据
+        console.log('成功的回调', value);
+      },
+      (reason) => { // 接收得到失败的reason数据
+        console.log('失败的回调', reason);
+      }
+    )
   </script>
 </body>
+
 </html>
